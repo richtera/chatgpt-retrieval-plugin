@@ -2,10 +2,12 @@
 # Copy and paste this into the main file at ../../../server/main.py if you choose to use no authentication for your retrieval plugin.
 from typing import Optional
 import uvicorn
-from fastapi import FastAPI, File, Form, HTTPException, Body, UploadFile
+import json
+# from pprint import pprint
+from fastapi import FastAPI, File, Form, HTTPException, Body, UploadFile, Response
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
-
+from os import environ
 from models.api import (
     DeleteRequest,
     DeleteResponse,
@@ -21,6 +23,19 @@ from models.models import DocumentMetadata, Source
 
 
 app = FastAPI()
+with open("./.well-known/ai-plugin.json", "r") as f:
+  plugin_json = json.load(f)
+  plugin_json["api"]["url"] = (environ.get("HOST_URL") or "http://localhost:3333")+"/.well-known/openapi.yaml"
+  plugin_json["logo_url"] = (environ.get("HOST_URL") or "http://localhost:3333")+"/.well-known/logo.png"
+
+  # pprint(plugin_json)
+  
+  plugin_json = json.dumps(plugin_json)
+
+@app.route("/.well-known/ai-plugin.json")
+def get_manifest(request):
+    return Response(content=plugin_json, media_type="application/json")
+
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="static")
 
 # Create a sub-application, in order to access just the query endpoints in the OpenAPI schema, found at http://0.0.0.0:8000/sub/openapi.json when the app is running locally
@@ -28,7 +43,7 @@ sub_app = FastAPI(
     title="Retrieval Plugin API",
     description="A retrieval API for querying and filtering documents based on natural language queries and metadata",
     version="1.0.0",
-    servers=[{"url": "http://localhost:3333"}],
+    servers=[{"url": environ.get("HOST_URL") or "http://localhost:3333"}],
 )
 app.mount("/sub", sub_app)
 

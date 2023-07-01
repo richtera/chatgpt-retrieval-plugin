@@ -48,7 +48,7 @@ loguru = "^0.7.0"
 
 [tool.poetry.scripts]
 start = "server.main:start"
-dev = "local_server.main:start"
+dev = "server.main:start"
 
 [tool.poetry.extras]
 postgresql = ["psycopg2cffi"]
