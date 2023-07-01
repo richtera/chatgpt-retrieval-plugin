@@ -3,6 +3,7 @@
 from typing import Optional
 import uvicorn
 import json
+import yaml
 # from pprint import pprint
 from fastapi import FastAPI, File, Form, HTTPException, Body, UploadFile, Response
 from fastapi.staticfiles import StaticFiles
@@ -28,13 +29,21 @@ with open("./.well-known/ai-plugin.json", "r") as f:
   plugin_json["api"]["url"] = (environ.get("HOST_URL") or "http://localhost:3333")+"/.well-known/openapi.yaml"
   plugin_json["logo_url"] = (environ.get("HOST_URL") or "http://localhost:3333")+"/.well-known/logo.png"
 
-  # pprint(plugin_json)
-  
   plugin_json = json.dumps(plugin_json)
 
+with open("./.well-known/openapi.yaml", "r") as f:
+  plugin_yaml = yaml.load(f, Loader=yaml.FullLoader)
+  plugin_yaml["info"]["servers"][0]["url"] = (environ.get("HOST_URL") or "http://localhost:3333")
+  
+  plugin_yaml = yaml.dump(plugin_yaml)
+  
 @app.route("/.well-known/ai-plugin.json")
 def get_manifest(request):
     return Response(content=plugin_json, media_type="application/json")
+
+@app.route("/.well-known/openapi.yaml")
+def get_manifest(request):
+    return Response(content=plugin_yaml, media_type="text/vnd.yaml")
 
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="static")
 
