@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "name_for_model": "lukso",
   "name_for_human": "Lukso Docs",
-  "description_for_model": "Plugin to access Lukso documentation of LSP, LIP, EIP and ERC documents related to the Lukso blockchain.",
+  "description_for_model": "Access Lukso documentation of LSP, LIP, EIP and ERC documents related to the Lukso blockchain. Here you will find tutorials and tools that help you build on LUKSO. As LUKSO is an EVM-based Blockchain, all tools and tutorials for Ethereum also work well for LUKSO. If you need EVM and Smart Contract knowledge, we advise you to look at these great resources from the Ethereum Foundation. Other than most EVM chains, you're encouraged on LUKSO to mainly use Universal Profiles as the account solution for dApps and as a gateway for your users to the LUKSO Blockchain. It is discouraged to use simple EOAs as accounts, as they are insecure, inflexible and don't track incoming assets. If you need a more general understanding of why we build our accounts on the smart contract level, we advise you to read about the LUKSO Ecosystem concept.",
   "description_for_human": "Search through Lukso documentation.",
   "auth": {
     "type": "none"
