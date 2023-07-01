@@ -1,19 +1,18 @@
 {
   "schema_version": "v1",
-  "name_for_model": "retrieval",
-  "name_for_human": "Retrieval Plugin",
-  "description_for_model": "Plugin for searching through the user's documents (such as files, emails, and more) to find answers to questions and retrieve relevant information. Use it whenever a user asks something that might be found in their personal information.",
-  "description_for_human": "Search through your documents.",
+  "name_for_model": "lukso",
+  "name_for_human": "Lukso Docs",
+  "description_for_model": "Plugin to access Lukso documentation of LSP, LIP, EIP and ERC documents related to the Lukso blockchain.",
+  "description_for_human": "Search through Lukso documentation.",
   "auth": {
-    "type": "user_http",
-    "authorization_type": "bearer"
+    "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://your-app-url.com/.well-known/openapi.yaml",
-    "has_user_authentication": false
+    "url": "https://your-app-url.com/.well-known/openapi.yaml"
   },
   "logo_url": "https://your-app-url.com/.well-known/logo.png",
-  "contact_email": "hello@contact.com", 
-  "legal_info_url": "http://example.com/legal-info"
+  "contact_email": "andreas@lukso.io", 
+  "legal_info_url": "hello@legal.com"
 }
+
