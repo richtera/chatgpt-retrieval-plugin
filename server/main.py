@@ -43,7 +43,7 @@ def get_manifest(request):
 
 @app.route("/.well-known/openapi.yaml")
 def get_manifest(request):
-    return Response(content=plugin_yaml, media_type="text/vnd.yaml")
+    return Response(content=plugin_yaml, media_type="text/plain")
 
 app.mount("/.well-known", StaticFiles(directory=".well-known"), name="static")
 
